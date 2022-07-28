@@ -7,46 +7,48 @@ import (
 	"time"
 
 	"github.com/kimulaco/go-dir/pkg/datetime"
+	"github.com/kimulaco/go-dir/pkg/dir"
+	"github.com/kimulaco/go-dir/pkg/fs"
 )
 
 func Init() (Config, error) {
-	var config Config
-	configDir, configDirErr := GetConfigDir()
-	if configDirErr != nil {
-		return config, configDirErr
+	var c Config
+	configDirPath, configDirPathErr := GetConfigDirPath()
+	if configDirPathErr != nil {
+		return c, configDirPathErr
 	}
 
-	hasConfigDir, _ := StatDir(configDir)
+	hasConfigDir, _ := fs.StatDir(configDirPath)
 	if !hasConfigDir {
-		makeConfigDirErr := os.MkdirAll(configDir, os.ModePerm)
+		makeConfigDirErr := os.MkdirAll(configDirPath, os.ModePerm)
 		if makeConfigDirErr != nil {
-			return config, makeConfigDirErr
+			return c, makeConfigDirErr
 		}
 	}
 
-	configFilePath := filepath.Join(configDir, CONFIG_FILE_NAME)
-	hasConfigFile, _ := StatFile(configFilePath)
+	configFilePath := filepath.Join(configDirPath, DEFAULT_CONFIG_FILE_NAME)
+	hasConfigFile, _ := fs.StatFile(configFilePath)
 	if hasConfigFile {
 		_config, readErr := ReadConfig(configFilePath)
-		config = _config
+		c = _config
 		if readErr != nil {
-			return _config, readErr
+			return c, readErr
 		}
 	} else {
 		_config, createErr := createDefaultConfig(configFilePath)
-		config = _config
+		c = _config
 		if createErr != nil {
-			return _config, createErr
+			return c, createErr
 		}
 	}
 
-	return config, nil
+	return c, nil
 }
 
 func createDefaultConfig(configFilePath string) (Config, error) {
 	config := Config{
 		UpdatedAt: datetime.TimeToString(time.Now()),
-		Dirs:      make([]ConfigDir, 0),
+		Dirs:      make([]dir.Dir, 0),
 	}
 	writeErr := WriteConfig(configFilePath, config)
 	if writeErr != nil {

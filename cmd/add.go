@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/kimulaco/go-dir/pkg/config"
+	"github.com/kimulaco/go-dir/pkg/dir"
 	"github.com/spf13/cobra"
 )
 
@@ -25,7 +26,7 @@ var addCmd = &cobra.Command{
 		}
 
 		dirName := args[0]
-		if !config.IsNotDir(c.GetDir(dirName)) {
+		if !dir.IsNotDir(c.GetDir(dirName)) {
 			fmt.Println(dirName + " already exists.")
 			os.Exit(1)
 		}
@@ -36,12 +37,12 @@ var addCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		c.Dirs = append(c.Dirs, config.ConfigDir{
+		c.Dirs = append(c.Dirs, dir.Dir{
 			Name: dirName,
 			Path: wd,
 		})
 
-		configPath, configPathErr := config.GetConfigPath()
+		configPath, configPathErr := config.GetConfigFilePath()
 		if configPathErr != nil {
 			fmt.Println(configPathErr.Error())
 			os.Exit(1)

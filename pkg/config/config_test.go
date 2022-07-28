@@ -3,12 +3,14 @@ package config
 import (
 	"encoding/json"
 	"testing"
+
+	"github.com/kimulaco/go-dir/pkg/dir"
 )
 
 func TestGetDir(t *testing.T) {
 	c := Config{
 		UpdatedAt: "",
-		Dirs: []ConfigDir{
+		Dirs: []dir.Dir{
 			{Name: "test-1", Path: "/test/dir-1"},
 			{Name: "test-2", Path: "/test/dir-2"},
 		},
@@ -36,7 +38,7 @@ func TestGetDir(t *testing.T) {
 func TestGetDirNoDir(t *testing.T) {
 	c := Config{
 		UpdatedAt: "",
-		Dirs:      make([]ConfigDir, 0),
+		Dirs:      []dir.Dir{},
 	}
 	dir := c.GetDir("test")
 	if dir.Name != "" || dir.Path != "" {
@@ -48,12 +50,12 @@ func TestGetDirNoDir(t *testing.T) {
 func TestConfigPrint(t *testing.T) {
 	c := Config{
 		UpdatedAt: "2022-01-01 12:00:00",
-		Dirs: []ConfigDir{
+		Dirs: []dir.Dir{
 			{Name: "test-1", Path: "/test/dir-1"},
 			{Name: "test-2", Path: "/test/dir-2"},
 		},
 	}
-	result := c.Print()
+	result := Print(c)
 	expect := `go-dir
 
 Dirs:
@@ -70,9 +72,9 @@ Updated At: 2022-01-01 12:00:00`
 func TestPrintNoDir(t *testing.T) {
 	c := Config{
 		UpdatedAt: "2022-01-01 12:00:00",
-		Dirs:      []ConfigDir{},
+		Dirs:      []dir.Dir{},
 	}
-	result := c.Print()
+	result := Print(c)
 	expect := `go-dir
 
 Dirs:
@@ -87,12 +89,12 @@ Updated At: 2022-01-01 12:00:00`
 func TestConfigPrintDirs(t *testing.T) {
 	c := Config{
 		UpdatedAt: "2022-01-01 12:00:00",
-		Dirs: []ConfigDir{
+		Dirs: []dir.Dir{
 			{Name: "test-1", Path: "/test/dir-1"},
 			{Name: "test-2", Path: "/test/dir-2"},
 		},
 	}
-	result := c.PrintDirs()
+	result := PrintDirs(c)
 	expect := `
 test-1 /test/dir-1
 test-2 /test/dir-2`

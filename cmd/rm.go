@@ -6,6 +6,7 @@ import (
 
 	"github.com/kimulaco/go-dir/pkg/array"
 	"github.com/kimulaco/go-dir/pkg/config"
+	"github.com/kimulaco/go-dir/pkg/dir"
 	"github.com/spf13/cobra"
 )
 
@@ -26,17 +27,17 @@ var rmCmd = &cobra.Command{
 		}
 
 		dirName := args[0]
-		dir := c.GetDir(dirName)
-		if config.IsNotDir(dir) {
+		configDir := c.GetDir(dirName)
+		if dir.IsNotDir(configDir) {
 			fmt.Println(dirName + " not found.")
 			os.Exit(1)
 		}
 
-		c.Dirs = array.Filter(c.Dirs, func(dir config.ConfigDir) bool {
-			return dir.Name != dirName
+		c.Dirs = array.Filter(c.Dirs, func(_dir dir.Dir) bool {
+			return _dir.Name != dirName
 		})
 
-		configPath, configPathErr := config.GetConfigPath()
+		configPath, configPathErr := config.GetConfigFilePath()
 		if configPathErr != nil {
 			fmt.Println(configPathErr.Error())
 			os.Exit(1)

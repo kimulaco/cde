@@ -4,17 +4,17 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/kimulaco/go-dir/pkg/config"
+	"github.com/kimulaco/go-dir/pkg/dir"
 )
 
 func TestFilter(t *testing.T) {
-	dirs := []config.ConfigDir{
+	dirs := []dir.Dir{
 		{Name: "test-1", Path: "/test-1"},
 		{Name: "test-2", Path: "/test-2"},
 		{Name: "test-3", Path: "/test-3"},
 		{Name: "test-4", Path: "/test-4"},
 	}
-	result := Filter(dirs, func(dir config.ConfigDir) bool {
+	result := Filter(dirs, func(dir dir.Dir) bool {
 		return dir.Name != "test-2"
 	})
 	if len(result) != 3 ||

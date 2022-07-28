@@ -2,26 +2,28 @@ package config
 
 import (
 	"fmt"
+
+	"github.com/kimulaco/go-dir/pkg/dir"
 )
 
-const CONFIG_DIR_NAME string = ".go-dir"
-const CONFIG_FILE_NAME string = "config.yml"
+const DEFAULT_CONFIG_DIR_NAME string = ".go-dir"
+const DEFAULT_CONFIG_FILE_NAME string = "config.yml"
 
 type Config struct {
-	UpdatedAt string      `yaml:"updatedAt"`
-	Dirs      []ConfigDir `yaml:"dirs"`
+	UpdatedAt string    `yaml:"updatedAt"`
+	Dirs      []dir.Dir `yaml:"dirs"`
 }
 
-func (c Config) GetDir(name string) ConfigDir {
+func (c Config) GetDir(name string) dir.Dir {
 	for _, dir := range c.Dirs {
 		if dir.Name == name {
 			return dir
 		}
 	}
-	return ConfigDir{}
+	return dir.Dir{}
 }
 
-func (c Config) Print() string {
+func Print(c Config) string {
 	value := "go-dir"
 
 	value += "\n\n" + "Dirs:"
@@ -35,7 +37,7 @@ func (c Config) Print() string {
 	return value
 }
 
-func (c Config) PrintDirs() string {
+func PrintDirs(c Config) string {
 	var value string
 	for _, dir := range c.Dirs {
 		value += "\n" + dir.Name + " " + dir.Path

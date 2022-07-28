@@ -6,6 +6,7 @@ import (
 	"os/exec"
 
 	"github.com/kimulaco/go-dir/pkg/config"
+	"github.com/kimulaco/go-dir/pkg/dir"
 	"github.com/spf13/cobra"
 )
 
@@ -26,13 +27,13 @@ var goCmd = &cobra.Command{
 		}
 
 		dirName := args[0]
-		dir := c.GetDir(dirName)
-		if config.IsNotDir(dir) {
+		configDir := c.GetDir(dirName)
+		if dir.IsNotDir(configDir) {
 			fmt.Println(dirName + " not found.")
 			os.Exit(1)
 		}
 
-		cdErr := exec.Command("cd " + dir.Path).Run()
+		cdErr := exec.Command("cd " + configDir.Path).Run()
 		if cdErr != nil {
 			fmt.Println(cdErr.Error())
 			os.Exit(1)

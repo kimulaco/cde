@@ -19,7 +19,7 @@ var rootCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		c.Print()
+		config.Print(c)
 	},
 }
 

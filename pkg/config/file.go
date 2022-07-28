@@ -9,30 +9,6 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-func StatFile(path string) (bool, error) {
-	info, err := os.Stat(path)
-	os.IsNotExist(err)
-	if err != nil {
-		return false, err
-	}
-	if info.IsDir() {
-		return false, err
-	}
-	return true, nil
-}
-
-func StatDir(path string) (bool, error) {
-	info, err := os.Stat(path)
-	os.IsNotExist(err)
-	if err != nil {
-		return false, err
-	}
-	if !info.IsDir() {
-		return false, err
-	}
-	return true, nil
-}
-
 func ReadConfig(filePath string) (Config, error) {
 	var config Config
 	bytes, readErr := ioutil.ReadFile(filePath)
@@ -62,18 +38,18 @@ func WriteConfig(filePath string, data Config) error {
 	return nil
 }
 
-func GetConfigDir() (string, error) {
+func GetConfigDirPath() (string, error) {
 	u, err := user.Current()
 	if err != nil {
 		return "", err
 	}
-	return filepath.Join(u.HomeDir, CONFIG_DIR_NAME), nil
+	return filepath.Join(u.HomeDir, DEFAULT_CONFIG_DIR_NAME), nil
 }
 
-func GetConfigPath() (string, error) {
-	configDir, configDirErr := GetConfigDir()
+func GetConfigFilePath() (string, error) {
+	configDir, configDirErr := GetConfigDirPath()
 	if configDirErr != nil {
 		return "", configDirErr
 	}
-	return filepath.Join(configDir, CONFIG_FILE_NAME), nil
+	return filepath.Join(configDir, DEFAULT_CONFIG_FILE_NAME), nil
 }

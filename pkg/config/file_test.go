@@ -5,60 +5,15 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/kimulaco/go-dir/pkg/dir"
+	"github.com/kimulaco/go-dir/pkg/fs"
 )
-
-func TestStatFile(t *testing.T) {
-	wd, _ := os.Getwd()
-
-	fp := filepath.Join(wd, "../../test/config/data/config.yml")
-	isFile, fileErr := StatFile(fp)
-	if fileErr != nil {
-		t.Error("Error: " + fileErr.Error())
-	}
-	if !isFile {
-		t.Error("Recieve: false")
-	}
-
-	dp := filepath.Join(wd, "../../test/config/data")
-	isFile, dirErr := StatFile(dp)
-	if dirErr != nil {
-		t.Error("Error: " + dirErr.Error())
-	}
-	if isFile {
-		t.Error("Recieve: true")
-	}
-
-	// TODO: Non-existent path
-}
-
-func TestStatDir(t *testing.T) {
-	wd, _ := os.Getwd()
-
-	dp := filepath.Join(wd, "../../test/config/data")
-	isDir, fileErr := StatDir(dp)
-	if fileErr != nil {
-		t.Error("Error: " + fileErr.Error())
-	}
-	if !isDir {
-		t.Error("Recieve: false")
-	}
-
-	fp := filepath.Join(wd, "../../test/config/data/config.yml")
-	isDir, dirErr := StatDir(fp)
-	if dirErr != nil {
-		t.Error("Error: " + dirErr.Error())
-	}
-	if isDir {
-		t.Error("Recieve: true")
-	}
-
-	// TODO: Non-existent path
-}
 
 func TestReadConfig(t *testing.T) {
 	wd, _ := os.Getwd()
-	fp := filepath.Join(wd, "../../test/config/data/config.yml")
-	c, readErr := ReadConfig(fp)
+	path := filepath.Join(wd, "../../test/config/data/config.yml")
+	c, readErr := ReadConfig(path)
 
 	if readErr != nil {
 		t.Error("Error: " + readErr.Error())
@@ -67,8 +22,20 @@ func TestReadConfig(t *testing.T) {
 		v, _ := json.Marshal(c)
 		t.Error("Recieve:\n" + string(v))
 	}
+}
 
-	// TODO: Non-existent path
+func TestReadConfigNotfound(t *testing.T) {
+	wd, _ := os.Getwd()
+	path := filepath.Join(wd, "../../test/config/notfound/config.yml")
+	c, readErr := ReadConfig(path)
+
+	if readErr == nil {
+		t.Error("Error: nil")
+	}
+	if c.UpdatedAt != "" || len(c.Dirs) != 0 {
+		v, _ := json.Marshal(c)
+		t.Error("Recieve:\n" + string(v))
+	}
 }
 
 func TestWriteConfig(t *testing.T) {
@@ -76,17 +43,37 @@ func TestWriteConfig(t *testing.T) {
 	fp := filepath.Join(wd, "../../test/config/data/dist/config.yml")
 	c := Config{
 		UpdatedAt: "2022-01-01 01:01:00",
-		Dirs:      make([]ConfigDir, 0),
+		Dirs:      []dir.Dir{},
 	}
 	writeErr := WriteConfig(fp, c)
 	if writeErr != nil {
 		t.Error("Error: " + writeErr.Error())
 	}
-	isFile, fileErr := StatFile(fp)
+	isFile, fileErr := fs.StatFile(fp)
 	if fileErr != nil {
 		t.Error("Error: " + fileErr.Error())
 	}
 	if !isFile {
 		t.Error("Recieve: false")
+	}
+}
+
+func TestGetConfigDirPath(t *testing.T) {
+	configDirPath, err := GetConfigDirPath()
+	if err != nil {
+		t.Error("Error: " + err.Error())
+	}
+	if configDirPath == "" {
+		t.Error("Recieve: " + configDirPath)
+	}
+}
+
+func TestGetConfigFilePath(t *testing.T) {
+	configFilePath, err := GetConfigFilePath()
+	if err != nil {
+		t.Error("Error: " + err.Error())
+	}
+	if configFilePath == "" {
+		t.Error("Recieve: " + configFilePath)
 	}
 }

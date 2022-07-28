@@ -1,10 +1,10 @@
-package config
+package dir
 
-type ConfigDir struct {
+type Dir struct {
 	Name string `yaml:"name"`
 	Path string `yaml:"path"`
 }
 
-func IsNotDir(d ConfigDir) bool {
+func IsNotDir(d Dir) bool {
 	return d.Name == "" || d.Path == ""
 }

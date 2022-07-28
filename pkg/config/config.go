@@ -73,20 +73,6 @@ func Init() (Config, error) {
 	return config, nil
 }
 
-func Print(c Config) string {
-	var value string
-
-	value += "\n" + "Dirs:"
-	for _, dir := range c.Dirs {
-		value += "\n" + dir.Name + " " + dir.Path
-	}
-
-	value += "\n\n" + "Updated At: " + c.UpdatedAt
-
-	fmt.Println(value)
-	return value
-}
-
 func createDefaultConfig(configFilePath string) (Config, error) {
 	config := Config{
 		UpdatedAt: datetime.TimeToString(time.Now()),

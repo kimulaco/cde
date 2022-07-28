@@ -1,0 +1,6 @@
+updatedAt: "2022-01-01 01:01:00"
+dirs:
+    - name: test1
+      path: ./test1
+    - name: test2
+      path: ./test2

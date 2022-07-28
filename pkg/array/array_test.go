@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/kimulaco/go-dir/pkg/dir"
+	"github.com/kimulaco/cde/pkg/dir"
 )
 
 func TestFilter(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/kimulaco/go-dir/pkg/dir"
+	"github.com/kimulaco/cde/pkg/dir"
 )
 
 func TestGetDir(t *testing.T) {
@@ -56,7 +56,7 @@ func TestConfigPrint(t *testing.T) {
 		},
 	}
 	result := Print(c)
-	expect := `go-dir
+	expect := `cde
 
 Dirs:
 test-1 /test/dir-1
@@ -75,7 +75,7 @@ func TestPrintNoDir(t *testing.T) {
 		Dirs:      []dir.Dir{},
 	}
 	result := Print(c)
-	expect := `go-dir
+	expect := `cde
 
 Dirs:
 

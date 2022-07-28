@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/kimulaco/go-dir/pkg/datetime"
-	"github.com/kimulaco/go-dir/pkg/dir"
-	"github.com/kimulaco/go-dir/pkg/fs"
+	"github.com/kimulaco/cde/pkg/datetime"
+	"github.com/kimulaco/cde/pkg/dir"
+	"github.com/kimulaco/cde/pkg/fs"
 )
 
 func Init() (Config, error) {

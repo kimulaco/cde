@@ -5,8 +5,8 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/kimulaco/go-dir/pkg/config"
-	"github.com/kimulaco/go-dir/pkg/dir"
+	"github.com/kimulaco/cde/pkg/config"
+	"github.com/kimulaco/cde/pkg/dir"
 	"github.com/spf13/cobra"
 )
 

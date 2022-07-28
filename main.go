@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/kimulaco/go-dir/cmd"
+	"github.com/kimulaco/cde/cmd"
 )
 
 func main() {

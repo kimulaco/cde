@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kimulaco/go-dir/pkg/config"
+	"github.com/kimulaco/cde/pkg/config"
 	"github.com/spf13/cobra"
 )
 

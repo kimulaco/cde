@@ -1,4 +1,4 @@
-module github.com/kimulaco/go-dir
+module github.com/kimulaco/cde
 
 go 1.18
 

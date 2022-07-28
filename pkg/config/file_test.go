@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/kimulaco/go-dir/pkg/dir"
-	"github.com/kimulaco/go-dir/pkg/fs"
+	"github.com/kimulaco/cde/pkg/dir"
+	"github.com/kimulaco/cde/pkg/fs"
 )
 
 func TestReadConfig(t *testing.T) {

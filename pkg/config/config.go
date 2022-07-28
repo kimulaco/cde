@@ -3,10 +3,10 @@ package config
 import (
 	"fmt"
 
-	"github.com/kimulaco/go-dir/pkg/dir"
+	"github.com/kimulaco/cde/pkg/dir"
 )
 
-const DEFAULT_CONFIG_DIR_NAME string = ".go-dir"
+const DEFAULT_CONFIG_DIR_NAME string = ".cde"
 const DEFAULT_CONFIG_FILE_NAME string = "config.yml"
 
 type Config struct {
@@ -24,9 +24,9 @@ func (c Config) GetDir(name string) dir.Dir {
 }
 
 func Print(c Config) string {
-	value := "go-dir"
+	value := "cde"
 
-	value += "\n\n" + "Dirs:"
+	value += "\n\n" + "Directories:"
 	for _, dir := range c.Dirs {
 		value += "\n" + dir.Name + " " + dir.Path
 	}

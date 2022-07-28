@@ -23,6 +23,30 @@ type Config struct {
 	Dirs      []ConfigDir `yaml:"dirs"`
 }
 
+func (c Config) Print() string {
+	value := "go-dir"
+
+	value += "\n\n" + "Dirs:"
+	for _, dir := range c.Dirs {
+		value += "\n" + dir.Name + " " + dir.Path
+	}
+
+	value += "\n\n" + "Updated At: " + c.UpdatedAt
+
+	fmt.Println(value)
+	return value
+}
+
+func (c Config) PrintDirList() string {
+	var value string
+	for _, dir := range c.Dirs {
+		value += "\n" + dir.Name + " " + dir.Path
+	}
+
+	fmt.Println(value)
+	return value
+}
+
 func GetConfigDir() (string, error) {
 	u, err := user.Current()
 	if err != nil {

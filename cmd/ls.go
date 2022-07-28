@@ -8,26 +8,20 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var rootCmd = &cobra.Command{
-	Use:   "dir",
-	Short: "",
-	Long:  "",
+var lsCmd = &cobra.Command{
+	Use:   "ls",
+	Short: "Command to list dirs.",
+	Long:  "Command to list dirs.",
 	Run: func(cmd *cobra.Command, args []string) {
 		c, err := config.Init()
 		if err != nil {
 			fmt.Println(err.Error())
 			os.Exit(1)
 		}
-
-		c.Print()
+		c.PrintDirList()
 	},
 }
 
-func Execute() {
-	err := rootCmd.Execute()
-	if err != nil {
-		os.Exit(1)
-	}
+func init() {
+	rootCmd.AddCommand(lsCmd)
 }
-
-func init() {}

@@ -25,7 +25,7 @@ var addCmd = &cobra.Command{
 		}
 
 		dirName := args[0]
-		if !config.IsNotDir(config.GetDir(c, dirName)) {
+		if !config.IsNotDir(c.GetDir(dirName)) {
 			fmt.Println(dirName + " already exists.")
 			os.Exit(1)
 		}

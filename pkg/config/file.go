@@ -3,6 +3,8 @@ package config
 import (
 	"io/ioutil"
 	"os"
+	"os/user"
+	"path/filepath"
 
 	"gopkg.in/yaml.v3"
 )
@@ -58,4 +60,20 @@ func WriteConfig(filePath string, data Config) error {
 	}
 
 	return nil
+}
+
+func GetConfigDir() (string, error) {
+	u, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+	return filepath.Join(u.HomeDir, CONFIG_DIR_NAME), nil
+}
+
+func GetConfigPath() (string, error) {
+	configDir, configDirErr := GetConfigDir()
+	if configDirErr != nil {
+		return "", configDirErr
+	}
+	return filepath.Join(configDir, CONFIG_FILE_NAME), nil
 }

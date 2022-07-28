@@ -26,7 +26,7 @@ var goCmd = &cobra.Command{
 		}
 
 		dirName := args[0]
-		dir := config.GetDir(c, dirName)
+		dir := c.GetDir(dirName)
 		if config.IsNotDir(dir) {
 			fmt.Println(dirName + " not found.")
 			os.Exit(1)

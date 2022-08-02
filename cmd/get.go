@@ -10,8 +10,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var getCmd = &cobra.Command{
-	Use:   "go",
+var goCmd = &cobra.Command{
+	Use:   "get",
 	Short: "Command to go to dir.",
 	Long:  "Command to go to dir.",
 	Run: func(cmd *cobra.Command, args []string) {
@@ -33,7 +33,7 @@ var getCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		cdCmd := "cd " + configDir.Path
+		cdCmd := "Copied to clipboard : cd " + configDir.Path
 		fmt.Println(cdCmd)
 		copyErr := clipboard.WriteAll(cdCmd)
 		if copyErr != nil {
@@ -44,5 +44,5 @@ var getCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(getCmd)
+	rootCmd.AddCommand(goCmd)
 }

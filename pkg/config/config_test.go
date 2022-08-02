@@ -58,7 +58,7 @@ func TestConfigPrint(t *testing.T) {
 	result := Print(c)
 	expect := `cde
 
-Dirs:
+Directories:
 test-1 /test/dir-1
 test-2 /test/dir-2
 
@@ -77,7 +77,7 @@ func TestPrintNoDir(t *testing.T) {
 	result := Print(c)
 	expect := `cde
 
-Dirs:
+Directories:
 
 Updated At: 2022-01-01 12:00:00`
 
